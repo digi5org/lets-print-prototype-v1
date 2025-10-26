@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Print - Business Owner Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Top Navbar -->
+    <nav class="top-navbar">
+        <div class="navbar-left">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                    <path d="M12 14h16v2H12v-2zm0 4h16v2H12v-2zm0 4h10v2H12v-2z" fill="#FCD34D"/>
+                </svg>
+                <span>Let's Print</span>
+            </div>
+        </div>
+        
+        <div class="navbar-center">
+            <div class="search-bar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" placeholder="Search orders, customers, products...">
+            </div>
+        </div>
+        
+        <div class="navbar-right">
+            <button class="icon-btn" title="Notifications">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                </svg>
+                <span class="badge">5</span>
+            </button>
+            <button class="icon-btn" title="Settings">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24"/>
+                </svg>
+            </button>
+            <div class="user-profile">
+                <img src="data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='40' height='40' fill='%234FACFE'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='16' font-family='Arial'%3EJD%3C/text%3E%3C/svg%3E" alt="User">
+                <div class="user-info">
+                    <span class="user-name">John Doe</span>
+                    <span class="user-role">Business Owner</span>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"/>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-menu">
+                <a href="#dashboard" class="menu-item active" data-view="dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#orders" class="menu-item" data-view="orders">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <path d="M16 10a4 4 0 0 1-8 0"/>
+                    </svg>
+                    <span>Orders</span>
+                    <span class="badge">24</span>
+                </a>
+                <a href="#designs" class="menu-item" data-view="designs">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                    <span>Designs & Proofs</span>
+                </a>
+                <a href="#production" class="menu-item" data-view="production">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                    <span>Production Requests</span>
+                </a>
+                <a href="#customers" class="menu-item" data-view="customers">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <span>Customers & Leads</span>
+                </a>
+                <a href="#marketing" class="menu-item" data-view="marketing">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <span>Marketing Tools</span>
+                </a>
+                <a href="#payments" class="menu-item" data-view="payments">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                        <line x1="1" y1="10" x2="23" y2="10"/>
+                    </svg>
+                    <span>Payments & Invoices</span>
+                </a>
+                <a href="#store" class="menu-item" data-view="store">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    <span>Store Settings</span>
+                </a>
+                <a href="#reports" class="menu-item" data-view="reports">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                    <span>Reports & Analytics</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="help-card">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    <h4>Need Help?</h4>
+                    <p>Check our documentation or contact support</p>
+                    <button class="btn-small">Get Help</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content" id="mainContent">
+            <!-- Dashboard View -->
+            <section class="view active" id="dashboardView">
+                <div class="view-header">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Welcome back, John! Here's what's happening today.</p>
+                    </div>
+                    <button class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        New Order
+                    </button>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="kpi-grid">
+                    <div class="kpi-card blue">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Total Orders</h3>
+                            <div class="kpi-value">342</div>
+                            <div class="kpi-change positive">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>12% from last month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card yellow">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Active Projects</h3>
+                            <div class="kpi-value">28</div>
+                            <div class="kpi-change positive">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>5% increase</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card green">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Total Revenue</h3>
+                            <div class="kpi-value">$48,352</div>
+                            <div class="kpi-change positive">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>18% from last month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card purple">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Profit Margin</h3>
+                            <div class="kpi-value">32.4%</div>
+                            <div class="kpi-change positive">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>2.1% increase</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card orange">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="16 12 12 8 8 12"/>
+                                <line x1="12" y1="16" x2="12" y2="8"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Pending Approvals</h3>
+                            <div class="kpi-value">12</div>
+                            <div class="kpi-change neutral">
+                                <span>Requires attention</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Revenue Overview</h3>
+                            <select class="select-small">
+                                <option>Last 6 Months</option>
+                                <option>Last Year</option>
+                                <option>All Time</option>
+                            </select>
+                        </div>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Order Status</h3>
+                        </div>
+                        <canvas id="orderStatusChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Orders</h3>
+                        <a href="#orders" class="link-primary">View All</a>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Product</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="text-mono">#ORD-1234</span></td>
+                                    <td>
+                                        <div class="customer-cell">
+                                            <img src="data:image/svg+xml,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='32' height='32' fill='%234FACFE'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='Arial'%3ESM%3C/text%3E%3C/svg%3E" alt="Sarah Mitchell">
+                                            <span>Sarah Mitchell</span>
+                                        </div>
+                                    </td>
+                                    <td>Business Cards (500)</td>
+                                    <td>Oct 24, 2025</td>
+                                    <td><strong>$245.00</strong></td>
+                                    <td><span class="badge status-pending">Pending</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="View">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                <circle cx="12" cy="12" r="3"/>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-mono">#ORD-1233</span></td>
+                                    <td>
+                                        <div class="customer-cell">
+                                            <img src="data:image/svg+xml,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='32' height='32' fill='%23667EEA'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='Arial'%3EJC%3C/text%3E%3C/svg%3E" alt="James Chen">
+                                            <span>James Chen</span>
+                                        </div>
+                                    </td>
+                                    <td>Flyers A5 (1000)</td>
+                                    <td>Oct 23, 2025</td>
+                                    <td><strong>$680.00</strong></td>
+                                    <td><span class="badge status-production">In Production</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="View">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                <circle cx="12" cy="12" r="3"/>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-mono">#ORD-1232</span></td>
+                                    <td>
+                                        <div class="customer-cell">
+                                            <img src="data:image/svg+xml,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='32' height='32' fill='%23F093FB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='Arial'%3EAR%3C/text%3E%3C/svg%3E" alt="Alex Rivera">
+                                            <span>Alex Rivera</span>
+                                        </div>
+                                    </td>
+                                    <td>Banners 2x6 ft (3)</td>
+                                    <td>Oct 22, 2025</td>
+                                    <td><strong>$450.00</strong></td>
+                                    <td><span class="badge status-shipped">Shipped</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="View">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                <circle cx="12" cy="12" r="3"/>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-mono">#ORD-1231</span></td>
+                                    <td>
+                                        <div class="customer-cell">
+                                            <img src="data:image/svg+xml,%3Csvg width='32' height='32' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='32' height='32' fill='%23FCD34D'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='Arial'%3ELK%3C/text%3E%3C/svg%3E" alt="Lisa Kim">
+                                            <span>Lisa Kim</span>
+                                        </div>
+                                    </td>
+                                    <td>Brochures A4 (250)</td>
+                                    <td>Oct 21, 2025</td>
+                                    <td><strong>$385.00</strong></td>
+                                    <td><span class="badge status-completed">Completed</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="View">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                <circle cx="12" cy="12" r="3"/>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders View -->
+            <section class="view" id="ordersView">
+                <div class="view-header">
+                    <div>
+                        <h1>Orders</h1>
+                        <p>Manage all your customer orders</p>
+                    </div>
+                    <button class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        New Order
+                    </button>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <input type="text" placeholder="Search orders..." class="search-input">
+                        <select class="filter-select">
+                            <option>All Statuses</option>
+                            <option>Pending</option>
+                            <option>In Production</option>
+                            <option>Shipped</option>
+                            <option>Completed</option>
+                        </select>
+                        <select class="filter-select">
+                            <option>Last 30 Days</option>
+                            <option>Last 7 Days</option>
+                            <option>Last 3 Months</option>
+                            <option>All Time</option>
+                        </select>
+                        <button class="btn-secondary-small">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                            </svg>
+                            More Filters
+                        </button>
+                    </div>
+                    <button class="btn-secondary-small">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Export
+                    </button>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="card">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                <!-- Orders will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <button class="btn-secondary-small">Previous</button>
+                        <div class="pagination-numbers">
+                            <button class="active">1</button>
+                            <button>2</button>
+                            <button>3</button>
+                            <button>4</button>
+                            <button>5</button>
+                        </div>
+                        <button class="btn-secondary-small">Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Designs & Proofs View -->
+            <section class="view" id="designsView">
+                <div class="view-header">
+                    <div>
+                        <h1>Designs & Proofs</h1>
+                        <p>Review and approve customer designs</p>
+                    </div>
+                    <button class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        Upload Design
+                    </button>
+                </div>
+
+                <!-- Design Status Filter -->
+                <div class="status-tabs">
+                    <button class="status-tab active">All Designs (42)</button>
+                    <button class="status-tab">Pending Review (12)</button>
+                    <button class="status-tab">Revisions Needed (5)</button>
+                    <button class="status-tab">Approved (25)</button>
+                </div>
+
+                <!-- Design Grid -->
+                <div class="design-grid" id="designGrid">
+                    <!-- Designs will be populated here -->
+                </div>
+            </section>
+
+            <!-- Production Requests View -->
+            <section class="view" id="productionView">
+                <div class="view-header">
+                    <div>
+                        <h1>Production Requests</h1>
+                        <p>Track and manage production orders</p>
+                    </div>
+                    <button class="btn-primary">Send to Production</button>
+                </div>
+
+                <!-- Production Pipeline -->
+                <div class="production-pipeline">
+                    <div class="pipeline-stage">
+                        <div class="stage-header">
+                            <h3>Queue</h3>
+                            <span class="badge">8</span>
+                        </div>
+                        <div class="stage-items" id="queueStage">
+                            <!-- Production items -->
+                        </div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-header">
+                            <h3>In Progress</h3>
+                            <span class="badge">5</span>
+                        </div>
+                        <div class="stage-items" id="progressStage">
+                            <!-- Production items -->
+                        </div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-header">
+                            <h3>Quality Check</h3>
+                            <span class="badge">3</span>
+                        </div>
+                        <div class="stage-items" id="qualityStage">
+                            <!-- Production items -->
+                        </div>
+                    </div>
+                    <div class="pipeline-stage">
+                        <div class="stage-header">
+                            <h3>Ready to Ship</h3>
+                            <span class="badge">7</span>
+                        </div>
+                        <div class="stage-items" id="readyStage">
+                            <!-- Production items -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customers & Leads (CRM) View -->
+            <section class="view" id="customersView">
+                <div class="view-header">
+                    <div>
+                        <h1>Customers & Leads</h1>
+                        <p>Manage your customer relationships</p>
+                    </div>
+                    <button class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Customer
+                    </button>
+                </div>
+
+                <!-- Customer Stats -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <h4>Total Customers</h4>
+                        <div class="stat-value">1,248</div>
+                        <div class="stat-change positive">+12% this month</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Active Leads</h4>
+                        <div class="stat-value">42</div>
+                        <div class="stat-change neutral">8 new this week</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Avg. Customer Value</h4>
+                        <div class="stat-value">$2,450</div>
+                        <div class="stat-change positive">+8% increase</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Retention Rate</h4>
+                        <div class="stat-value">89%</div>
+                        <div class="stat-change positive">+3% improvement</div>
+                    </div>
+                </div>
+
+                <!-- Customer Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Customer List</h3>
+                        <div class="filter-group">
+                            <input type="text" placeholder="Search customers..." class="search-input">
+                            <select class="filter-select">
+                                <option>All Customers</option>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                                <option>VIP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Total Spend</th>
+                                    <th>Orders</th>
+                                    <th>Last Contact</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customersTableBody">
+                                <!-- Customers will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Marketing Tools View -->
+            <section class="view" id="marketingView">
+                <div class="view-header">
+                    <div>
+                        <h1>Marketing Tools</h1>
+                        <p>Create and manage marketing campaigns</p>
+                    </div>
+                    <button class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        New Campaign
+                    </button>
+                </div>
+
+                <!-- Campaign Builder -->
+                <div class="two-column-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Campaign Builder</h3>
+                        </div>
+                        <div class="campaign-form">
+                            <div class="form-group">
+                                <label>Campaign Name</label>
+                                <input type="text" placeholder="e.g., Spring Sale 2025" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Campaign Type</label>
+                                <div class="campaign-types">
+                                    <button class="campaign-type-btn active">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                            <polyline points="22,6 12,13 2,6"/>
+                                        </svg>
+                                        Email
+                                    </button>
+                                    <button class="campaign-type-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                                        </svg>
+                                        SMS
+                                    </button>
+                                    <button class="campaign-type-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+                                        </svg>
+                                        Social
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Target Audience</label>
+                                <select class="form-select">
+                                    <option>All Customers</option>
+                                    <option>Active Customers</option>
+                                    <option>Inactive Customers</option>
+                                    <option>VIP Customers</option>
+                                    <option>Custom Segment</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea class="form-textarea" rows="6" placeholder="Write your campaign message..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Schedule</label>
+                                <div class="schedule-options">
+                                    <label class="radio-label">
+                                        <input type="radio" name="schedule" checked>
+                                        <span>Send Now</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="schedule">
+                                        <span>Schedule for Later</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="button-group">
+                                <button class="btn-primary">Send Campaign</button>
+                                <button class="btn-secondary">Save as Draft</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- Campaign Analytics -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Campaign Performance</h3>
+                            </div>
+                            <div class="analytics-metrics">
+                                <div class="metric">
+                                    <div class="metric-label">Total Campaigns</div>
+                                    <div class="metric-value">24</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">Open Rate</div>
+                                    <div class="metric-value">42.5%</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">Click Rate</div>
+                                    <div class="metric-value">18.3%</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">Conversion Rate</div>
+                                    <div class="metric-value">8.7%</div>
+                                </div>
+                            </div>
+                            <canvas id="conversionChart"></canvas>
+                        </div>
+
+                        <!-- Recent Campaigns -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Recent Campaigns</h3>
+                            </div>
+                            <div class="campaigns-list" id="campaignsList">
+                                <!-- Campaigns will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payments & Invoices View -->
+            <section class="view" id="paymentsView">
+                <div class="view-header">
+                    <div>
+                        <h1>Payments & Invoices</h1>
+                        <p>Track payments and manage invoices</p>
+                    </div>
+                    <button class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Create Invoice
+                    </button>
+                </div>
+
+                <!-- Payment Stats -->
+                <div class="payment-stats">
+                    <div class="payment-stat-card">
+                        <h4>Total Revenue</h4>
+                        <div class="payment-value">$48,352.00</div>
+                        <div class="payment-detail">This month</div>
+                    </div>
+                    <div class="payment-stat-card">
+                        <h4>Pending Payments</h4>
+                        <div class="payment-value">$12,450.00</div>
+                        <div class="payment-detail">15 invoices</div>
+                    </div>
+                    <div class="payment-stat-card">
+                        <h4>Overdue</h4>
+                        <div class="payment-value warning">$3,280.00</div>
+                        <div class="payment-detail">4 invoices</div>
+                    </div>
+                    <div class="payment-stat-card">
+                        <h4>Paid This Month</h4>
+                        <div class="payment-value success">$35,902.00</div>
+                        <div class="payment-detail">68 invoices</div>
+                    </div>
+                </div>
+
+                <!-- Invoices Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Invoices</h3>
+                        <div class="filter-group">
+                            <select class="filter-select">
+                                <option>All Invoices</option>
+                                <option>Paid</option>
+                                <option>Pending</option>
+                                <option>Overdue</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice ID</th>
+                                    <th>Customer</th>
+                                    <th>Issue Date</th>
+                                    <th>Due Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoicesTableBody">
+                                <!-- Invoices will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Store Settings View -->
+            <section class="view" id="storeView">
+                <div class="view-header">
+                    <div>
+                        <h1>Store Settings</h1>
+                        <p>Customize your online storefront</p>
+                    </div>
+                    <button class="btn-primary">Preview Storefront</button>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="settings-sidebar">
+                        <nav class="settings-nav">
+                            <a href="#general" class="settings-nav-item active">General</a>
+                            <a href="#branding" class="settings-nav-item">Branding</a>
+                            <a href="#products" class="settings-nav-item">Products</a>
+                            <a href="#pricing" class="settings-nav-item">Pricing</a>
+                            <a href="#shipping" class="settings-nav-item">Shipping</a>
+                            <a href="#integrations" class="settings-nav-item">Integrations</a>
+                        </nav>
+                    </div>
+
+                    <div class="settings-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>General Settings</h3>
+                            </div>
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>Store Name</label>
+                                    <input type="text" class="form-input" value="PrintHub Pro" placeholder="Your store name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Store URL</label>
+                                    <div class="input-group">
+                                        <span class="input-prefix">letsprint.com/</span>
+                                        <input type="text" class="form-input" value="printhubpro">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact Email</label>
+                                    <input type="email" class="form-input" value="hello@printhubpro.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" class="form-input" value="+1 (555) 123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <label>Business Address</label>
+                                    <textarea class="form-textarea" rows="3">123 Print Street, Design City, DC 12345</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Store Description</label>
+                                    <textarea class="form-textarea" rows="4">Professional printing services for businesses of all sizes. From business cards to large format prints, we deliver quality results.</textarea>
+                                </div>
+                                <div class="button-group">
+                                    <button class="btn-primary">Save Changes</button>
+                                    <button class="btn-secondary">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports & Analytics View -->
+            <section class="view" id="reportsView">
+                <div class="view-header">
+                    <div>
+                        <h1>Reports & Analytics</h1>
+                        <p>Track business performance and insights</p>
+                    </div>
+                    <div class="button-group">
+                        <select class="filter-select">
+                            <option>Last 30 Days</option>
+                            <option>Last 7 Days</option>
+                            <option>Last 3 Months</option>
+                            <option>Last Year</option>
+                            <option>Custom Range</option>
+                        </select>
+                        <button class="btn-secondary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Export Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Report Charts -->
+                <div class="reports-grid">
+                    <div class="chart-card large">
+                        <div class="card-header">
+                            <h3>Monthly Revenue Trends</h3>
+                        </div>
+                        <canvas id="monthlyRevenueChart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Top Selling Products</h3>
+                        </div>
+                        <canvas id="topProductsChart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Turnaround Times</h3>
+                        </div>
+                        <canvas id="turnaroundChart"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Production Delays</h3>
+                        </div>
+                        <div class="delay-stats">
+                            <div class="delay-stat">
+                                <div class="delay-label">On Time</div>
+                                <div class="delay-value success">87%</div>
+                            </div>
+                            <div class="delay-stat">
+                                <div class="delay-label">Slight Delay</div>
+                                <div class="delay-value warning">10%</div>
+                            </div>
+                            <div class="delay-stat">
+                                <div class="delay-label">Significant Delay</div>
+                                <div class="delay-value danger">3%</div>
+                            </div>
+                        </div>
+                        <canvas id="delayChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Key Performance Indicators</h3>
+                    </div>
+                    <div class="kpi-metrics">
+                        <div class="kpi-metric">
+                            <div class="kpi-metric-icon blue">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                </svg>
+                            </div>
+                            <div class="kpi-metric-content">
+                                <div class="kpi-metric-label">Average Order Value</div>
+                                <div class="kpi-metric-value">$428.50</div>
+                                <div class="kpi-metric-change positive">+12.5%</div>
+                            </div>
+                        </div>
+                        <div class="kpi-metric">
+                            <div class="kpi-metric-icon green">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                            <div class="kpi-metric-content">
+                                <div class="kpi-metric-label">Customer Acquisition</div>
+                                <div class="kpi-metric-value">148</div>
+                                <div class="kpi-metric-change positive">+8.3%</div>
+                            </div>
+                        </div>
+                        <div class="kpi-metric">
+                            <div class="kpi-metric-icon yellow">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div class="kpi-metric-content">
+                                <div class="kpi-metric-label">Avg. Production Time</div>
+                                <div class="kpi-metric-value">2.4 days</div>
+                                <div class="kpi-metric-change negative">+0.3 days</div>
+                            </div>
+                        </div>
+                        <div class="kpi-metric">
+                            <div class="kpi-metric-icon purple">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                            </div>
+                            <div class="kpi-metric-content">
+                                <div class="kpi-metric-label">Customer Satisfaction</div>
+                                <div class="kpi-metric-value">4.8/5.0</div>
+                                <div class="kpi-metric-change positive">+0.2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
