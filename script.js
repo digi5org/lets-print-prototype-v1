@@ -460,7 +460,7 @@ function selectTemplate(templateName) {
             
             // Redirect to dashboard after 2 seconds
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
+                window.location.href = 'business-owner-dashboard.html';
             }, 2000);
         }, 300);
     }, 2000);
