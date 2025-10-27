@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     populateSupport();
     populateAccessRequests();
     populateAuditLog();
+    populateRoleActivity();
     wireActions();
 });
 
@@ -370,6 +371,81 @@ function populateIncidents() {
     }
 }
 
+function populateRoleActivity() {
+    const businessOwnerEvents = [
+        {
+            name: 'Sarah Mitchell',
+            tenant: 'PrintHub Pro',
+            action: 'Updated storefront pricing tier for brochures',
+            timestamp: 'Oct 27, 2025 • 09:12 UTC',
+            detail: 'Adjustment moves brochure premium pack to $489'
+        },
+        {
+            name: 'James Chen',
+            tenant: 'QuickPrint Solutions',
+            action: 'Reviewed quarterly revenue report export',
+            timestamp: 'Oct 27, 2025 • 08:46 UTC',
+            detail: 'No changes recorded • export downloaded'
+        },
+        {
+            name: 'Lisa Kim',
+            tenant: 'DesignPrint Studio',
+            action: 'Triggered client onboarding campaign email blast',
+            timestamp: 'Oct 26, 2025 • 22:05 UTC',
+            detail: 'Campaign sent to 142 inactive clients'
+        }
+    ];
+
+    const productionOwnerEvents = [
+        {
+            name: 'Daniel Harper',
+            tenant: 'PrintHub Pro',
+            action: 'Advanced 12 jobs from Queue to In Progress',
+            timestamp: 'Oct 27, 2025 • 09:21 UTC',
+            detail: 'Included high-priority banner run for TechCon'
+        },
+        {
+            name: 'Priya Natarajan',
+            tenant: 'QuickPrint Solutions',
+            action: 'Acknowledged maintenance alert on UV press #3',
+            timestamp: 'Oct 27, 2025 • 07:58 UTC',
+            detail: 'Scheduled follow-up for Oct 28, 07:00 UTC'
+        },
+        {
+            name: 'Miguel Alvarez',
+            tenant: 'Stencil Labs',
+            action: 'Approved proof for custom die-cut stickers',
+            timestamp: 'Oct 26, 2025 • 18:32 UTC',
+            detail: 'Proof version 3 routed to print queue'
+        }
+    ];
+
+    const businessContainer = document.getElementById('businessOwnerActivity');
+    if (businessContainer) {
+        businessContainer.innerHTML = businessOwnerEvents.map(event => buildActivityItem(event)).join('');
+    }
+
+    const productionContainer = document.getElementById('productionOwnerActivity');
+    if (productionContainer) {
+        productionContainer.innerHTML = productionOwnerEvents.map(event => buildActivityItem(event)).join('');
+    }
+}
+
+function buildActivityItem(event) {
+    return `
+        <div class="campaign-list-item">
+            <div class="campaign-list-info">
+                <h4>${event.name} • ${event.tenant}</h4>
+                <p>${event.action}</p>
+                <p>${event.detail}</p>
+            </div>
+            <div class="campaign-list-stats">
+                <div class="campaign-stat-label">${event.timestamp}</div>
+            </div>
+        </div>
+    `;
+}
+
 function populateBilling() {
     const invoices = [
         {
@@ -613,6 +689,12 @@ function wireActions() {
 
     const createIncidentBtn = document.getElementById('createIncidentBtn');
     createIncidentBtn?.addEventListener('click', () => showToast('Incident creation dialog opened', 'info'));
+
+    const activityRoleFilter = document.getElementById('activityRoleFilter');
+    activityRoleFilter?.addEventListener('change', () => showToast('Role filter is informational in the prototype', 'info'));
+
+    const activityRangeFilter = document.getElementById('activityRangeFilter');
+    activityRangeFilter?.addEventListener('change', () => showToast('Time-range filter is informational in the prototype', 'info'));
 }
 
 function badgeClassForStatus(status) {

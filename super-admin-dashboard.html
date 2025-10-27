@@ -105,6 +105,17 @@
                     </svg>
                     <span>Support</span>
                 </a>
+                <a href="#activity" class="menu-item" data-view="activity">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 6h-7"/>
+                        <path d="M10 6H3"/>
+                        <circle cx="12" cy="6" r="2"/>
+                        <path d="M21 18h-7"/>
+                        <path d="M10 18H3"/>
+                        <circle cx="12" cy="18" r="2"/>
+                    </svg>
+                    <span>Role Activity</span>
+                </a>
                 <a href="#access" class="menu-item" data-view="access">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="3"/>
@@ -582,6 +593,45 @@
                             </thead>
                             <tbody id="supportTableBody"></tbody>
                         </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="activityView">
+                <div class="view-header">
+                    <div>
+                        <h1>Role Activity</h1>
+                        <p>Review recent actions performed by business and production owners. View only.</p>
+                    </div>
+                    <div class="button-group">
+                        <select class="filter-select" id="activityRoleFilter">
+                            <option>All Roles</option>
+                            <option>Business Owner</option>
+                            <option>Production Owner</option>
+                        </select>
+                        <select class="filter-select" id="activityRangeFilter">
+                            <option>Last 24 Hours</option>
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="two-column-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Business Owner Activity</h3>
+                            <span class="badge status-shipped">View Only</span>
+                        </div>
+                        <div class="campaigns-list" id="businessOwnerActivity"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Production Owner Activity</h3>
+                            <span class="badge status-shipped">View Only</span>
+                        </div>
+                        <div class="campaigns-list" id="productionOwnerActivity"></div>
                     </div>
                 </div>
             </section>
