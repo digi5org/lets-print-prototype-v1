@@ -116,6 +116,23 @@
                     </svg>
                     <span>Role Activity</span>
                 </a>
+                <a href="#resources" class="menu-item" data-view="resources">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16v16H4z"/>
+                        <path d="M4 9h16"/>
+                        <path d="M9 4v16"/>
+                    </svg>
+                    <span>Resources</span>
+                </a>
+                <a href="#notices" class="menu-item" data-view="notices">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16v12H5.17L4 17.17V4z"/>
+                        <path d="M22 15v2a2 2 0 0 1-2 2H6"/>
+                        <path d="M16 8H8"/>
+                        <path d="M18 12H8"/>
+                    </svg>
+                    <span>Notices</span>
+                </a>
                 <a href="#access" class="menu-item" data-view="access">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="3"/>
@@ -632,6 +649,125 @@
                             <span class="badge status-shipped">View Only</span>
                         </div>
                         <div class="campaigns-list" id="productionOwnerActivity"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="resourcesView">
+                <div class="view-header">
+                    <div>
+                        <h1>Resources & Knowledge</h1>
+                        <p>Centralized FAQs, support guidance, blog updates, and tutorials for super admins.</p>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn-secondary" id="openSupportDocsBtn">Open Help Center</button>
+                    </div>
+                </div>
+
+                <div class="two-column-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Super Admin FAQ</h3>
+                        </div>
+                        <div class="campaigns-list" id="faqList"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Support Ticket Playbook</h3>
+                        </div>
+                        <div class="campaigns-list" id="supportGuide"></div>
+                    </div>
+                </div>
+
+                <div class="two-column-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Platform Blog Highlights</h3>
+                            <span class="badge status-shipped">Updated Weekly</span>
+                        </div>
+                        <div class="campaigns-list" id="blogHighlights"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Tutorials & Knowledge Base</h3>
+                        </div>
+                        <div class="campaigns-list" id="knowledgeBase"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="noticesView">
+                <div class="view-header">
+                    <div>
+                        <h1>Broadcast Notices</h1>
+                        <p>Send informational notices to all tenants or target specific business and production owners.</p>
+                    </div>
+                    <div class="button-group">
+                        <select class="filter-select" id="noticeTemplateSelect">
+                            <option>Blank Notice</option>
+                            <option>Maintenance Window</option>
+                            <option>Billing Update</option>
+                            <option>Incident Follow-up</option>
+                        </select>
+                        <button class="btn-secondary" id="noticePreviewBtn">Preview Notice</button>
+                    </div>
+                </div>
+
+                <div class="two-column-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Create Notice</h3>
+                            <span class="badge status-shipped">Send Only</span>
+                        </div>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label>Audience</label>
+                                <div class="schedule-options">
+                                    <label class="radio-label">
+                                        <input type="radio" name="noticeAudience" value="all" checked>
+                                        <span>All Tenants</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="noticeAudience" value="targeted">
+                                        <span>Individual Owners</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="targetedRecipientsContainer" style="display: none;">
+                                <label>Select Recipients</label>
+                                <div class="campaigns-list" id="recipientChecklist"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <input type="text" class="form-input" id="noticeSubject" placeholder="e.g., Scheduled downtime on Nov 2" />
+                            </div>
+                            <div class="form-group">
+                                <label>Priority</label>
+                                <select class="form-select" id="noticePriority">
+                                    <option>Normal</option>
+                                    <option>High</option>
+                                    <option>Critical</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea class="form-textarea" id="noticeMessage" rows="6" placeholder="Provide clear context, timeline, and next steps..."></textarea>
+                            </div>
+                            <div class="button-group">
+                                <button class="btn-primary" id="sendNoticeBtn">Send Notice</button>
+                                <button class="btn-secondary" id="saveDraftNoticeBtn">Save Draft</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Notices</h3>
+                            <a href="#" class="link-primary">View Archive</a>
+                        </div>
+                        <div class="campaigns-list" id="noticeHistory"></div>
                     </div>
                 </div>
             </section>
