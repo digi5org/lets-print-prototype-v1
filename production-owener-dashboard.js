@@ -40,6 +40,13 @@
         {id: 'ORD-1005', client: 'Echo', partner: 'Startup A', product: 'Poster', qty: 10, status: 'pending', payment: 'due', amount: 30.00, date: '2025-10-27'}
     ];
 
+    // Delivery sample data
+    const sampleDeliveries = [
+        {orderId: 'ORD-1001', address: '12 Baker St, City', courier: 'Ravi', eta: '30 mins', status: 'out'},
+        {orderId: 'ORD-1003', address: '88 Market Ave, City', courier: 'Anna', eta: '2 hrs', status: 'awaiting'},
+        {orderId: 'ORD-1004', address: '44 Sunset Blvd, City', courier: 'Ravi', eta: '-', status: 'delivered'}
+    ];
+
     function formatCurrency(v) { return '$' + v.toFixed(2); }
 
     // Populate recent orders on overview
@@ -107,6 +114,35 @@
         document.getElementById('kpiUrgent').textContent = urgent;
     }
 
+    // Delivery population
+    function populateDeliveryView() {
+        const out = sampleDeliveries.filter(d => d.status === 'out').length;
+        const deliveredToday = sampleDeliveries.filter(d => d.status === 'delivered').length;
+        const avgHours = (sampleDeliveries.reduce((s,d) => s + (d.eta && d.eta.includes('hrs') ? parseFloat(d.eta) : 0), 0) / Math.max(1, sampleDeliveries.length)).toFixed(1);
+
+        document.getElementById('kpiOutForDelivery').textContent = out;
+        document.getElementById('kpiDeliveredToday').textContent = deliveredToday;
+        document.getElementById('kpiAvgDelivery').textContent = avgHours + ' hrs';
+
+        const tbody = document.querySelector('#deliveryTable tbody');
+        tbody.innerHTML = '';
+        sampleDeliveries.forEach(d => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${d.orderId}</td>
+                <td>${d.address}</td>
+                <td>${d.courier}</td>
+                <td>${d.eta}</td>
+                <td><span class="badge status-${d.status}">${d.status.replace('_',' ')}</span></td>
+                <td>
+                    <button class="btn-secondary-small" onclick="assignCourier('${d.orderId}')">Assign</button>
+                    <button class="btn-secondary-small" onclick="markDelivered('${d.orderId}')">Mark Delivered</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
     // Actions (simple placeholders)
     window.viewOrder = function(id) { alert('View order ' + id + ' (placeholder)'); };
     window.printSlip = function(id) { alert('Print slip for ' + id + ' (placeholder)'); };
@@ -153,6 +189,13 @@
     populateOrdersTable();
     updateKpis();
     initCharts();
+
+    // delivery init
+    populateDeliveryView();
+
+    // Delivery actions
+    window.assignCourier = function(orderId) { alert('Assign courier for ' + orderId + ' (placeholder)'); };
+    window.markDelivered = function(orderId) { if(confirm('Mark ' + orderId + ' as delivered?')) { const d = sampleDeliveries.find(x=>x.orderId===orderId); if(d) d.status='delivered'; populateDeliveryView(); updateKpis(); alert(orderId + ' marked delivered'); } };
 
     // sample inventory / products / team populations (simple)
     document.getElementById('productsTable').querySelector('tbody').innerHTML = `
