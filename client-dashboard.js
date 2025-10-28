@@ -19,14 +19,20 @@ function initializeNavigation() {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             const targetView = item.getAttribute('data-view');
-            
+            // Defensive mapping: menu `data-view` uses short names like "dashboard" while
+            // the corresponding section ids use the convention `<name>View` (e.g. `dashboardView`).
+            const viewId = targetView && targetView.endsWith('View') ? targetView : (targetView + 'View');
+
             // Update active menu item
             menuItems.forEach(mi => mi.classList.remove('active'));
             item.classList.add('active');
-            
+
             // Update active view
             views.forEach(v => v.classList.remove('active'));
-            document.getElementById(targetView).classList.add('active');
+            const targetEl = document.getElementById(viewId);
+            if (targetEl) {
+                targetEl.classList.add('active');
+            }
         });
     });
     
@@ -173,8 +179,9 @@ function populateRecentOrders() {
 
 // Populate Orders Table
 function populateOrdersTable() {
-    const ordersTable = document.querySelector('#ordersTable tbody');
-    if (!ordersTable) return;
+    // HTML uses tbody id `ordersTableBody` so select that directly
+    const ordersTableBody = document.getElementById('ordersTableBody');
+    if (!ordersTableBody) return;
     
     const orders = [
         { id: 'ORD-1023', product: 'Business Cards', quantity: 500, date: 'Dec 10, 2024', status: 'Production', amount: 450 },
@@ -188,7 +195,7 @@ function populateOrdersTable() {
         { id: 'ORD-1015', product: 'Banners', quantity: 3, date: 'Dec 5, 2024', status: 'Completed', amount: 580 }
     ];
     
-    ordersTable.innerHTML = orders.map(order => `
+    ordersTableBody.innerHTML = orders.map(order => `
         <tr>
             <td class="text-mono">${order.id}</td>
             <td>${order.product}</td>
@@ -211,8 +218,9 @@ function populateOrdersTable() {
 
 // Populate Invoices Table
 function populateInvoicesTable() {
-    const invoicesTable = document.querySelector('#invoicesTable tbody');
-    if (!invoicesTable) return;
+    // HTML uses tbody id `invoicesTableBody`
+    const invoicesTableBody = document.getElementById('invoicesTableBody');
+    if (!invoicesTableBody) return;
     
     const invoices = [
         { id: 'INV-1023', date: 'Dec 10, 2024', due: 'Dec 24, 2024', amount: 450, status: 'Unpaid' },
@@ -225,7 +233,7 @@ function populateInvoicesTable() {
         { id: 'INV-1016', date: 'Dec 5, 2024', due: 'Dec 19, 2024', amount: 250, status: 'Paid' }
     ];
     
-    invoicesTable.innerHTML = invoices.map(invoice => `
+    invoicesTableBody.innerHTML = invoices.map(invoice => `
         <tr>
             <td class="text-mono">${invoice.id}</td>
             <td>${invoice.date}</td>
@@ -365,23 +373,25 @@ function performTracking() {
 // Track Order Function
 function trackOrder(orderId) {
     // Switch to Track Shipment view
-    const trackView = document.getElementById('trackView');
     const views = document.querySelectorAll('.view');
     views.forEach(v => v.classList.remove('active'));
-    trackView.classList.add('active');
-    
+
+    // data-view for tracking menu item is 'track-shipment' so map to 'track-shipmentView'
+    const trackView = document.getElementById('track-shipmentView');
+    if (trackView) trackView.classList.add('active');
+
     // Update menu
     const menuItems = document.querySelectorAll('.menu-item');
     menuItems.forEach(item => item.classList.remove('active'));
-    document.querySelector('[data-view="trackView"]').classList.add('active');
-    
-    // Set tracking number
-    document.getElementById('trackingNumber').value = orderId;
-    
-    // Perform tracking
-    setTimeout(() => {
-        performTracking();
-    }, 100);
+    const trackMenu = document.querySelector('[data-view="track-shipment"]');
+    if (trackMenu) trackMenu.classList.add('active');
+
+    // Set tracking number (input in HTML uses class .tracking-input; try to find it)
+    const trackingInput = document.querySelector('.tracking-input') || document.getElementById('trackingNumber');
+    if (trackingInput) trackingInput.value = orderId;
+
+    // Perform tracking (small delay to allow view switch)
+    setTimeout(() => performTracking(), 120);
 }
 
 // File Upload Handler

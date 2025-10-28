@@ -138,6 +138,15 @@
                     </svg>
                     <span>Support</span>
                 </a>
+                <a href="#tickets" class="menu-item" data-view="tickets">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 7h18v2a2 2 0 0 1-2 2h-2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h18a2 2 0 0 1 2 2"/>
+                        <line x1="8" y1="12" x2="16" y2="12"/>
+                        <line x1="8" y1="16" x2="12" y2="16"/>
+                    </svg>
+                    <span>Tickets</span>
+                    <span class="badge">2</span>
+                </a>
                 <a href="#account" class="menu-item" data-view="account">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -565,6 +574,74 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tickets View -->
+            <section class="view" id="ticketsView">
+                <div class="view-header">
+                    <div>
+                        <h1>Support Tickets</h1>
+                        <p>View and manage your support requests</p>
+                    </div>
+                    <button class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Create Ticket
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Active Tickets</h3>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Ticket ID</th>
+                                    <th>Subject</th>
+                                    <th>Created</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticketsTableBody">
+                                <tr>
+                                    <td class="text-mono">TKT-2025</td>
+                                    <td>Missing confirmation email</td>
+                                    <td>Oct 26, 2025</td>
+                                    <td><span class="badge status-normal">Normal</span></td>
+                                    <td><span class="badge status-pending">In Progress</span></td>
+                                    <td>
+                                        <button class="btn-secondary-small">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-mono">TKT-2024</td>
+                                    <td>Request design changes</td>
+                                    <td>Oct 24, 2025</td>
+                                    <td><span class="badge status-low">Low</span></td>
+                                    <td><span class="badge status-resolved">Resolved</span></td>
+                                    <td>
+                                        <button class="btn-secondary-small">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Ticket Details</h3>
+                    </div>
+                    <div class="ticket-details">
+                        <p>Select a ticket to view the conversation and reply.</p>
                     </div>
                 </div>
             </section>
