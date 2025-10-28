@@ -5,6 +5,9 @@
     box-sizing: border-box;
 }
 
+/* Import Blog Section Styles */
+@import url('blog-section.css');
+
 :root {
     /* Futuristic Color Palette */
     --primary-blue: #00D9FF;
