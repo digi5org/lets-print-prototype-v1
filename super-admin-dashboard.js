@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     populateAccessRequests();
     populateAuditLog();
     populateRoleActivity();
+    populateResources();
+    populateNotices();
     wireActions();
 });
 
@@ -446,6 +448,207 @@ function buildActivityItem(event) {
     `;
 }
 
+function populateResources() {
+    const faqItems = [
+        {
+            title: 'How do I audit tenant configuration changes?',
+            description: 'Use the Audit Log view and filter by tenant or action. Export results if you need to share with compliance.',
+            meta: 'Last reviewed Oct 20, 2025'
+        },
+        {
+            title: 'Can I impersonate a tenant admin?',
+            description: 'Super admins have read-only visibility. Use the Access view to approve delegated access instead of impersonation.',
+            meta: 'Policy ID SA-083'
+        },
+        {
+            title: 'Where can I see scheduled maintenance?',
+            description: 'Maintenance windows are posted in the System Health view timeline and mirrored in weekly status emails.',
+            meta: 'Updated 3 days ago'
+        }
+    ];
+
+    const supportSteps = [
+        {
+            title: '1. Verify tenant context',
+            description: 'Confirm tenant ID, plan, and impacted regions before escalating tickets.',
+            meta: 'Checklist SA-SUP-01'
+        },
+        {
+            title: '2. Review knowledge base entry',
+            description: 'Search by incident code or feature flag to find playbooks that may resolve the issue.',
+            meta: 'KB coverage 92%'
+        },
+        {
+            title: '3. Escalate to NOC if SLO at risk',
+            description: 'Escalate via Command Center and attach logs, metrics snapshots, and tenant impact summary.',
+            meta: 'Target response < 15 min'
+        }
+    ];
+
+    const blogPosts = [
+        {
+            title: 'October Platform Update: Usage-Based Billing',
+            description: 'Deep dive into the new billing engine and how to monitor tenant adoption.',
+            meta: 'Published Oct 24, 2025',
+            cta: 'Read release notes'
+        },
+        {
+            title: 'Scaling Support for Peak Season',
+            description: 'Best practices for aligning support staffing with holiday print demand.',
+            meta: 'Published Oct 18, 2025',
+            cta: 'View article'
+        }
+    ];
+
+    const tutorials = [
+        {
+            title: 'Video: Navigating the Command Center',
+            description: '5-minute walkthrough covering real-time alerts, incident timelines, and response workflows.',
+            meta: 'Duration: 5m 12s',
+            cta: 'Watch now'
+        },
+        {
+            title: 'Guide: Tenant Onboarding Playbook',
+            description: 'Step-by-step checklist for bringing a new print partner online in under 48 hours.',
+            meta: 'PDF • v2.3',
+            cta: 'Download guide'
+        },
+        {
+            title: 'Knowledge Base: Feature Flags Reference',
+            description: 'All platform flags with rollout status, guardrails, and fallback procedures.',
+            meta: 'Updated Oct 25, 2025',
+            cta: 'Open KB entry'
+        }
+    ];
+
+    const faqList = document.getElementById('faqList');
+    if (faqList) {
+        faqList.innerHTML = faqItems.map(item => buildResourceItem(item)).join('');
+    }
+
+    const supportGuide = document.getElementById('supportGuide');
+    if (supportGuide) {
+        supportGuide.innerHTML = supportSteps.map(item => buildResourceItem(item)).join('');
+    }
+
+    const blogHighlights = document.getElementById('blogHighlights');
+    if (blogHighlights) {
+        blogHighlights.innerHTML = blogPosts.map(item => buildResourceItem(item)).join('');
+    }
+
+    const knowledgeBase = document.getElementById('knowledgeBase');
+    if (knowledgeBase) {
+        knowledgeBase.innerHTML = tutorials.map(item => buildResourceItem(item)).join('');
+    }
+}
+
+function buildResourceItem(item) {
+    const ctaMarkup = item.cta ? `<p><a href="#" class="link-primary">${item.cta}</a></p>` : '';
+    const metaMarkup = item.meta ? `<div class="campaign-stat-label">${item.meta}</div>` : '';
+
+    return `
+        <div class="campaign-list-item">
+            <div class="campaign-list-info">
+                <h4>${item.title}</h4>
+                <p>${item.description}</p>
+                ${ctaMarkup}
+            </div>
+            <div class="campaign-list-stats">
+                ${metaMarkup}
+            </div>
+        </div>
+    `;
+}
+
+function populateNotices() {
+    const recipients = [
+        {
+            id: 'rec-ph',
+            name: 'Sarah Mitchell',
+            role: 'Business Owner',
+            tenant: 'PrintHub Pro'
+        },
+        {
+            id: 'rec-qps',
+            name: 'James Chen',
+            role: 'Business Owner',
+            tenant: 'QuickPrint Solutions'
+        },
+        {
+            id: 'rec-dps',
+            name: 'Daniel Harper',
+            role: 'Production Owner',
+            tenant: 'PrintHub Pro'
+        },
+        {
+            id: 'rec-pf',
+            name: 'Priya Natarajan',
+            role: 'Production Owner',
+            tenant: 'PrintFlow'
+        },
+        {
+            id: 'rec-sl',
+            name: 'Miguel Alvarez',
+            role: 'Production Owner',
+            tenant: 'Stencil Labs'
+        }
+    ];
+
+    const history = [
+        {
+            subject: 'Maintenance window complete',
+            sent: 'Oct 26, 2025 • 23:10 UTC',
+            audience: 'All tenants',
+            author: 'Avery Singh'
+        },
+        {
+            subject: 'Billing reconciliation in progress',
+            sent: 'Oct 24, 2025 • 18:45 UTC',
+            audience: 'Business owners',
+            author: 'Finance Bot'
+        },
+        {
+            subject: 'Incident INC-2043 resolved',
+            sent: 'Oct 23, 2025 • 05:22 UTC',
+            audience: 'Impacted tenants (3)',
+            author: 'NOC On-Call'
+        }
+    ];
+
+    const checklist = document.getElementById('recipientChecklist');
+    if (checklist) {
+        checklist.innerHTML = recipients.map(recipient => `
+            <div class="campaign-list-item">
+                <div class="campaign-list-info">
+                    <label for="${recipient.id}" style="display: flex; align-items: center; gap: 12px;">
+                        <input type="checkbox" id="${recipient.id}" value="${recipient.id}">
+                        <span>
+                            <strong>${recipient.name}</strong><br>
+                            ${recipient.role} • ${recipient.tenant}
+                        </span>
+                    </label>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    const historyContainer = document.getElementById('noticeHistory');
+    if (historyContainer) {
+        historyContainer.innerHTML = history.map(item => `
+            <div class="campaign-list-item">
+                <div class="campaign-list-info">
+                    <h4>${item.subject}</h4>
+                    <p>${item.audience}</p>
+                </div>
+                <div class="campaign-list-stats">
+                    <div class="campaign-stat-label">${item.sent}</div>
+                    <span class="badge status-shipped">${item.author}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
 function populateBilling() {
     const invoices = [
         {
@@ -695,6 +898,93 @@ function wireActions() {
 
     const activityRangeFilter = document.getElementById('activityRangeFilter');
     activityRangeFilter?.addEventListener('change', () => showToast('Time-range filter is informational in the prototype', 'info'));
+
+    const openSupportDocsBtn = document.getElementById('openSupportDocsBtn');
+    openSupportDocsBtn?.addEventListener('click', () => showToast('Help Center shortcut opening in separate tab (prototype)', 'info'));
+
+    const audienceRadios = document.querySelectorAll('input[name="noticeAudience"]');
+    const targetedContainer = document.getElementById('targetedRecipientsContainer');
+    audienceRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            const isTargeted = radio.value === 'targeted' && radio.checked;
+            if (targetedContainer) {
+                targetedContainer.style.display = isTargeted ? 'block' : 'none';
+            }
+        });
+    });
+
+    const sendNoticeBtn = document.getElementById('sendNoticeBtn');
+    sendNoticeBtn?.addEventListener('click', () => showToast('Notice sent to selected recipients (prototype)', 'success'));
+
+    const saveDraftNoticeBtn = document.getElementById('saveDraftNoticeBtn');
+    saveDraftNoticeBtn?.addEventListener('click', () => showToast('Draft saved to notice archive (prototype)', 'info'));
+
+    const noticePreviewBtn = document.getElementById('noticePreviewBtn');
+    noticePreviewBtn?.addEventListener('click', () => showToast('Preview opens in side panel (prototype)', 'info'));
+
+    const submitResourceBtn = document.getElementById('submitResourceBtn');
+    submitResourceBtn?.addEventListener('click', () => {
+        const type = /** @type {HTMLSelectElement|null} */ (document.getElementById('resourceTypeSelect'));
+        const titleInput = /** @type {HTMLInputElement|null} */ (document.getElementById('resourceTitleInput'));
+        const descriptionInput = /** @type {HTMLTextAreaElement|null} */ (document.getElementById('resourceDescriptionInput'));
+        const ctaInput = /** @type {HTMLInputElement|null} */ (document.getElementById('resourceCtaInput'));
+
+        if (!type || !titleInput || !descriptionInput || !ctaInput) {
+            showToast('Form elements unavailable (prototype)', 'info');
+            return;
+        }
+
+        const title = titleInput.value.trim();
+        const description = descriptionInput.value.trim();
+        if (!title || !description) {
+            showToast('Provide both title and description to share a resource', 'info');
+            return;
+        }
+
+        const containerMap = {
+            faq: 'faqList',
+            support: 'supportGuide',
+            blog: 'blogHighlights',
+            tutorial: 'knowledgeBase'
+        };
+
+        const containerId = containerMap[type.value];
+        const container = containerId ? document.getElementById(containerId) : null;
+        if (!container) {
+            showToast('Resource type not available in prototype', 'info');
+            return;
+        }
+
+        const item = {
+            title,
+            description,
+            meta: 'Submitted just now',
+            cta: ctaInput.value.trim() || undefined
+        };
+
+        container.insertAdjacentHTML('afterbegin', buildResourceItem(item));
+        showToast('Resource shared with admin team (prototype)', 'success');
+
+        titleInput.value = '';
+        descriptionInput.value = '';
+        ctaInput.value = '';
+        type.value = type.options[0].value;
+    });
+
+    const resetResourceBtn = document.getElementById('resetResourceBtn');
+    resetResourceBtn?.addEventListener('click', () => {
+        const titleInput = /** @type {HTMLInputElement|null} */ (document.getElementById('resourceTitleInput'));
+        const descriptionInput = /** @type {HTMLTextAreaElement|null} */ (document.getElementById('resourceDescriptionInput'));
+        const ctaInput = /** @type {HTMLInputElement|null} */ (document.getElementById('resourceCtaInput'));
+        const type = /** @type {HTMLSelectElement|null} */ (document.getElementById('resourceTypeSelect'));
+
+        if (titleInput) titleInput.value = '';
+        if (descriptionInput) descriptionInput.value = '';
+        if (ctaInput) ctaInput.value = '';
+        if (type) type.value = type.options[0].value;
+
+        showToast('Form cleared', 'info');
+    });
 }
 
 function badgeClassForStatus(status) {
