@@ -664,6 +664,40 @@
                     </div>
                 </div>
 
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Share New Resource</h3>
+                        <span class="badge status-shipped">Visible to Admin Team</span>
+                    </div>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>Resource Type</label>
+                            <select class="form-select" id="resourceTypeSelect">
+                                <option value="faq">Super Admin FAQ</option>
+                                <option value="support">Support Playbook</option>
+                                <option value="blog">Blog Highlight</option>
+                                <option value="tutorial">Tutorial / Knowledge Base</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-input" id="resourceTitleInput" placeholder="Concise headline for the update" />
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-textarea" id="resourceDescriptionInput" rows="4" placeholder="Summarize the key information or action item"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>CTA Label (optional)</label>
+                            <input type="text" class="form-input" id="resourceCtaInput" placeholder="e.g., View document" />
+                        </div>
+                        <div class="button-group">
+                            <button class="btn-primary" id="submitResourceBtn">Share Resource</button>
+                            <button class="btn-secondary" id="resetResourceBtn">Clear</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="two-column-grid">
                     <div class="card">
                         <div class="card-header">

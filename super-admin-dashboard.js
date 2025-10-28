@@ -921,6 +921,70 @@ function wireActions() {
 
     const noticePreviewBtn = document.getElementById('noticePreviewBtn');
     noticePreviewBtn?.addEventListener('click', () => showToast('Preview opens in side panel (prototype)', 'info'));
+
+    const submitResourceBtn = document.getElementById('submitResourceBtn');
+    submitResourceBtn?.addEventListener('click', () => {
+        const type = /** @type {HTMLSelectElement|null} */ (document.getElementById('resourceTypeSelect'));
+        const titleInput = /** @type {HTMLInputElement|null} */ (document.getElementById('resourceTitleInput'));
+        const descriptionInput = /** @type {HTMLTextAreaElement|null} */ (document.getElementById('resourceDescriptionInput'));
+        const ctaInput = /** @type {HTMLInputElement|null} */ (document.getElementById('resourceCtaInput'));
+
+        if (!type || !titleInput || !descriptionInput || !ctaInput) {
+            showToast('Form elements unavailable (prototype)', 'info');
+            return;
+        }
+
+        const title = titleInput.value.trim();
+        const description = descriptionInput.value.trim();
+        if (!title || !description) {
+            showToast('Provide both title and description to share a resource', 'info');
+            return;
+        }
+
+        const containerMap = {
+            faq: 'faqList',
+            support: 'supportGuide',
+            blog: 'blogHighlights',
+            tutorial: 'knowledgeBase'
+        };
+
+        const containerId = containerMap[type.value];
+        const container = containerId ? document.getElementById(containerId) : null;
+        if (!container) {
+            showToast('Resource type not available in prototype', 'info');
+            return;
+        }
+
+        const item = {
+            title,
+            description,
+            meta: 'Submitted just now',
+            cta: ctaInput.value.trim() || undefined
+        };
+
+        container.insertAdjacentHTML('afterbegin', buildResourceItem(item));
+        showToast('Resource shared with admin team (prototype)', 'success');
+
+        titleInput.value = '';
+        descriptionInput.value = '';
+        ctaInput.value = '';
+        type.value = type.options[0].value;
+    });
+
+    const resetResourceBtn = document.getElementById('resetResourceBtn');
+    resetResourceBtn?.addEventListener('click', () => {
+        const titleInput = /** @type {HTMLInputElement|null} */ (document.getElementById('resourceTitleInput'));
+        const descriptionInput = /** @type {HTMLTextAreaElement|null} */ (document.getElementById('resourceDescriptionInput'));
+        const ctaInput = /** @type {HTMLInputElement|null} */ (document.getElementById('resourceCtaInput'));
+        const type = /** @type {HTMLSelectElement|null} */ (document.getElementById('resourceTypeSelect'));
+
+        if (titleInput) titleInput.value = '';
+        if (descriptionInput) descriptionInput.value = '';
+        if (ctaInput) ctaInput.value = '';
+        if (type) type.value = type.options[0].value;
+
+        showToast('Form cleared', 'info');
+    });
 }
 
 function badgeClassForStatus(status) {
