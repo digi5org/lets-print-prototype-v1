@@ -19,8 +19,8 @@ if (mobileMenuToggle && navMenu) {
         }
     });
 
-    // Close mobile menu when clicking on a link
-    const navLinks = navMenu.querySelectorAll('a');
+    // Close mobile menu when clicking on a link (except dropdown toggle)
+    const navLinks = navMenu.querySelectorAll('a:not(.dropdown-toggle)');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             navMenu.classList.remove('active');
@@ -31,6 +31,19 @@ if (mobileMenuToggle && navMenu) {
         });
     });
 }
+
+// Dropdown Menu Toggle for Mobile
+const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+dropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+        // On mobile, prevent default and toggle dropdown
+        if (window.innerWidth <= 768) {
+            e.preventDefault();
+            const navDropdown = toggle.closest('.nav-dropdown');
+            navDropdown.classList.toggle('active');
+        }
+    });
+});
 
 // Pricing Toggle (Monthly/Annual)
 const pricingToggle = document.getElementById('pricingToggle');
@@ -649,3 +662,16 @@ document.addEventListener('mousemove', (e) => {
 });
 
 console.log('✨ Futuristic effects loaded');
+
+// Companies Carousel - Infinite Scroll
+const companiesTrack = document.getElementById('companiesTrack');
+if (companiesTrack) {
+    // Clone the logos to create seamless infinite scroll
+    const companyLogos = Array.from(companiesTrack.children);
+    companyLogos.forEach(logo => {
+        const clone = logo.cloneNode(true);
+        companiesTrack.appendChild(clone);
+    });
+    
+    console.log('🏢 Companies carousel initialized with ' + companyLogos.length + ' companies');
+}
