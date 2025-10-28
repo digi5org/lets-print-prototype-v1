@@ -47,6 +47,12 @@
         {orderId: 'ORD-1004', address: '44 Sunset Blvd, City', courier: 'Ravi', eta: '-', status: 'delivered'}
     ];
 
+    // Tickets sample data
+    const sampleTickets = [
+        {id: 'TCK-001', title: 'Payment not reflected', priority: 'high', status: 'open', created: '2025-10-27'},
+        {id: 'TCK-002', title: 'Unable to print slip', priority: 'medium', status: 'open', created: '2025-10-26'}
+    ];
+
     function formatCurrency(v) { return '$' + v.toFixed(2); }
 
     // Populate recent orders on overview
@@ -142,6 +148,59 @@
             tbody.appendChild(tr);
         });
     }
+
+    // Tickets population
+    function populateTicketsView() {
+        const tbody = document.querySelector('#ticketsTable tbody');
+        tbody.innerHTML = '';
+        sampleTickets.forEach(t => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${t.id}</td>
+                <td>${t.title}</td>
+                <td>${t.priority}</td>
+                <td><span class="badge status-${t.status}">${t.status}</span></td>
+                <td>${t.created}</td>
+                <td>
+                    <button class="btn-secondary-small" onclick="viewTicket('${t.id}')">View</button>
+                    <button class="btn-secondary-small" onclick="sendToSuperAdmin('${t.id}')">Send to Super Admin</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Ticket actions
+    window.viewTicket = function(id) { const t = sampleTickets.find(x=>x.id===id); if(t) alert(`Ticket ${id}: ${t.title}\n\nPriority: ${t.priority}\nStatus: ${t.status}`); };
+    window.sendToSuperAdmin = function(id) {
+        const t = sampleTickets.find(x=>x.id===id);
+        if(!t) return alert('Ticket not found');
+        if(confirm('Send ticket ' + id + ' to Super Admin?')) {
+            t.status = 'sent';
+            populateTicketsView();
+            alert('Ticket ' + id + ' sent to Super Admin');
+        }
+    };
+
+    // Create ticket from form
+    function createTicketFromForm() {
+        const title = (document.getElementById('ticketTitle')||{}).value || '';
+        const desc = (document.getElementById('ticketDescription')||{}).value || '';
+        const priority = (document.getElementById('ticketPriority')||{}).value || 'low';
+        if(!title.trim() || !desc.trim()) return alert('Please provide title and description');
+        const id = 'TCK-' + String(1000 + sampleTickets.length + 1).slice(-4);
+        const created = new Date().toISOString().slice(0,10);
+        sampleTickets.unshift({id, title, priority, status: 'open', created, desc});
+        populateTicketsView();
+        // clear form
+        document.getElementById('ticketTitle').value = '';
+        document.getElementById('ticketDescription').value = '';
+        document.getElementById('ticketPriority').value = 'low';
+        alert('Ticket ' + id + ' created and ready to send');
+    }
+
+    document.getElementById('createTicketBtn').addEventListener('click', createTicketFromForm);
+    document.getElementById('clearTicketBtn').addEventListener('click', ()=>{ document.getElementById('ticketTitle').value=''; document.getElementById('ticketDescription').value=''; document.getElementById('ticketPriority').value='low'; });
 
     // Actions (simple placeholders)
     window.viewOrder = function(id) { alert('View order ' + id + ' (placeholder)'); };
