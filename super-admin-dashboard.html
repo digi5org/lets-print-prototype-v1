@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Print - Super Admin Dashboard</title>
+    <link rel="stylesheet" href="business-owner-dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <nav class="top-navbar">
+        <div class="navbar-left">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                    <path d="M12 14h16v2H12v-2zm0 4h16v2H12v-2zm0 4h10v2H12v-2z" fill="#FCD34D"/>
+                </svg>
+                <span>Let's Print</span>
+            </div>
+        </div>
+        <div class="navbar-center">
+            <div class="search-bar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" placeholder="Search tenants, incidents, billing...">
+            </div>
+        </div>
+        <div class="navbar-right">
+            <button class="icon-btn" title="Notifications">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                </svg>
+                <span class="badge">9</span>
+            </button>
+            <button class="icon-btn" title="Command Center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+            </button>
+            <div class="user-profile">
+                <img src="data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='40' height='40' fill='%238B5CF6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='16' font-family='Arial'%3EAS%3C/text%3E%3C/svg%3E" alt="User">
+                <div class="user-info">
+                    <span class="user-name">Avery Singh</span>
+                    <span class="user-role">Global Super Admin</span>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"/>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-menu">
+                <a href="#overview" class="menu-item active" data-view="overview">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <span>Overview</span>
+                </a>
+                <a href="#tenants" class="menu-item" data-view="tenants">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 21v-8l9-4 9 4v8"/>
+                        <path d="M3 13l9 4 9-4"/>
+                        <path d="M12 9l9 4"/>
+                        <path d="M12 9L3 13"/>
+                    </svg>
+                    <span>Tenants</span>
+                </a>
+                <a href="#health" class="menu-item" data-view="health">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="4 14 9 9 13 13 21 4"/>
+                        <path d="M21 4v7"/>
+                        <path d="M21 4h-7"/>
+                    </svg>
+                    <span>System Health</span>
+                </a>
+                <a href="#billing" class="menu-item" data-view="billing">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                        <line x1="1" y1="10" x2="23" y2="10"/>
+                    </svg>
+                    <span>Billing</span>
+                </a>
+                <a href="#support" class="menu-item" data-view="support">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <polyline points="17 11 19 13 23 9"/>
+                    </svg>
+                    <span>Support</span>
+                </a>
+                <a href="#activity" class="menu-item" data-view="activity">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 6h-7"/>
+                        <path d="M10 6H3"/>
+                        <circle cx="12" cy="6" r="2"/>
+                        <path d="M21 18h-7"/>
+                        <path d="M10 18H3"/>
+                        <circle cx="12" cy="18" r="2"/>
+                    </svg>
+                    <span>Role Activity</span>
+                </a>
+                <a href="#resources" class="menu-item" data-view="resources">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16v16H4z"/>
+                        <path d="M4 9h16"/>
+                        <path d="M9 4v16"/>
+                    </svg>
+                    <span>Resources</span>
+                </a>
+                <a href="#notices" class="menu-item" data-view="notices">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16v12H5.17L4 17.17V4z"/>
+                        <path d="M22 15v2a2 2 0 0 1-2 2H6"/>
+                        <path d="M16 8H8"/>
+                        <path d="M18 12H8"/>
+                    </svg>
+                    <span>Notices</span>
+                </a>
+                <a href="#access" class="menu-item" data-view="access">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 2a10 10 0 0 1 5.93 18.09L12 22l-5.93-1.91A10 10 0 0 1 12 2z"/>
+                    </svg>
+                    <span>User Access</span>
+                </a>
+                <a href="#audit" class="menu-item" data-view="audit">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 4h18v6H3z"/>
+                        <path d="M16 13H3"/>
+                        <path d="M21 13h-3"/>
+                        <path d="M16 17H3"/>
+                        <path d="M21 17h-3"/>
+                    </svg>
+                    <span>Audit Log</span>
+                </a>
+                <a href="#settings" class="menu-item" data-view="settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .7.4 1.34 1.02 1.64.62.3 1.02.94 1.02 1.64a2 2 0 1 1-4 0z"/>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <div class="help-card">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    <h4>Need Assistance?</h4>
+                    <p>Escalate incidents or contact the NOC team</p>
+                    <button class="btn-small">Open Command Center</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content" id="mainContent">
+            <section class="view active" id="overviewView">
+                <div class="view-header">
+                    <div>
+                        <h1>Platform Overview</h1>
+                        <p>Real-time visibility across all tenants, infrastructure, and revenue streams.</p>
+                    </div>
+                    <button class="btn-primary" id="commandCenterBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                            <polyline points="2 17 12 22 22 17"/>
+                            <polyline points="2 12 12 17 22 12"/>
+                        </svg>
+                        Launch Command Center
+                    </button>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card blue">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 21v-8l9-4 9 4v8"/>
+                                <path d="M3 13l9 4 9-4"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Total Tenants</h3>
+                            <div class="kpi-value">128</div>
+                            <div class="kpi-change positive">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>+12 new this month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kpi-card purple">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Active Users</h3>
+                            <div class="kpi-value">4,580</div>
+                            <div class="kpi-change positive">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>+8.2% QoQ</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kpi-card green">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1v22"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Monthly Recurring</h3>
+                            <div class="kpi-value">$287,400</div>
+                            <div class="kpi-change positive">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>MRR +5.4%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kpi-card yellow">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 20h20"/>
+                                <path d="M6 16v-5l6-3 6 3v5"/>
+                                <path d="M6 16v4"/>
+                                <path d="M18 16v4"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Uptime (30d)</h3>
+                            <div class="kpi-value">99.98%</div>
+                            <div class="kpi-change positive">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"/>
+                                </svg>
+                                <span>1.2 min downtime</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kpi-card orange">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 9v4"/>
+                                <circle cx="12" cy="17" r="1"/>
+                                <path d="M20.18 5H3.82a1 1 0 0 0-.9 1.45l8.18 14.63a1 1 0 0 0 1.8 0l8.18-14.63a1 1 0 0 0-.9-1.45z"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Compliance Audits</h3>
+                            <div class="kpi-value">8 in progress</div>
+                            <div class="kpi-change neutral">
+                                <span>SOC2 refresh due Nov 15</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Tenant Growth</h3>
+                            <select class="select-small" id="tenantGrowthRange">
+                                <option selected>Last 12 Months</option>
+                                <option>Year to Date</option>
+                                <option>All Time</option>
+                            </select>
+                        </div>
+                        <canvas id="tenantGrowthChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Revenue by Plan</h3>
+                        </div>
+                        <canvas id="planDistributionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="two-column-grid overview-split">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Global Tenant Snapshot</h3>
+                            <a href="#tenants" class="link-primary">View Directory</a>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tenant</th>
+                                        <th>Plan</th>
+                                        <th>Users</th>
+                                        <th>MRR</th>
+                                        <th>Status</th>
+                                        <th>Health</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="snapshotTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Platform Alerts</h3>
+                                <button class="btn-secondary-small" id="muteAlertsBtn">Mute 1h</button>
+                            </div>
+                            <div class="campaigns-list" id="alertFeed"></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Upcoming Actions</h3>
+                            </div>
+                            <div class="campaigns-list" id="upcomingActions"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="tenantsView">
+                <div class="view-header">
+                    <div>
+                        <h1>Tenant Directory</h1>
+                        <p>Manage onboarding, suspensions, and lifecycle events for every tenant.</p>
+                    </div>
+                    <button class="btn-primary" id="inviteTenantBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Tenant
+                    </button>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <h4>Enterprise</h4>
+                        <div class="stat-value">42</div>
+                        <div class="stat-change positive">+6 this quarter</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Professional</h4>
+                        <div class="stat-value">61</div>
+                        <div class="stat-change positive">+9 this quarter</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Starter</h4>
+                        <div class="stat-value">25</div>
+                        <div class="stat-change neutral">Stable</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Churn (90d)</h4>
+                        <div class="stat-value">1.7%</div>
+                        <div class="stat-change positive">Improved 0.4%</div>
+                    </div>
+                </div>
+
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <input type="text" placeholder="Search tenants..." class="search-input" id="tenantSearch">
+                        <select class="filter-select" id="tenantStatusFilter">
+                            <option>All Statuses</option>
+                            <option>Active</option>
+                            <option>Trial</option>
+                            <option>Suspended</option>
+                            <option>Churn Risk</option>
+                        </select>
+                        <select class="filter-select" id="tenantPlanFilter">
+                            <option>All Plans</option>
+                            <option>Enterprise</option>
+                            <option>Professional</option>
+                            <option>Starter</option>
+                        </select>
+                        <button class="btn-secondary-small" id="tenantExportBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                                <path d="M5 19h14"/>
+                            </svg>
+                            Export
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Tenant</th>
+                                    <th>Plan</th>
+                                    <th>Users</th>
+                                    <th>Last Activity</th>
+                                    <th>MRR</th>
+                                    <th>Status</th>
+                                    <th>Health</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tenantTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="healthView">
+                <div class="view-header">
+                    <div>
+                        <h1>System Health</h1>
+                        <p>Monitor infrastructure, latency, and error budgets across regions.</p>
+                    </div>
+                    <div class="button-group">
+                        <select class="filter-select" id="regionFilter">
+                            <option>All Regions</option>
+                            <option>US-East</option>
+                            <option>US-West</option>
+                            <option>EU-Central</option>
+                            <option>AP-South</option>
+                        </select>
+                        <button class="btn-secondary">Download Report</button>
+                    </div>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card green">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="9"/>
+                                <path d="M12 7v5l3 2"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>API Latency</h3>
+                            <div class="kpi-value">182 ms</div>
+                            <div class="kpi-change positive">SLO on track</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card purple">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6"/>
+                                <polyline points="7 10 12 5 17 10"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Deployments (24h)</h3>
+                            <div class="kpi-value">14</div>
+                            <div class="kpi-change positive">0 failed</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card orange">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 9v4"/>
+                                <circle cx="12" cy="17" r="1"/>
+                                <path d="M5.4 19h13.2a2 2 0 0 0 1.8-3l-6.6-11.5a2 2 0 0 0-3.6 0L3.6 16a2 2 0 0 0 1.8 3z"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Active Incidents</h3>
+                            <div class="kpi-value">1</div>
+                            <div class="kpi-change warning">Investigating latency spike</div>
+                        </div>
+                    </div>
+                    <div class="kpi-card blue">
+                        <div class="kpi-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1v22"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="kpi-content">
+                            <h3>Error Budget</h3>
+                            <div class="kpi-value">94%</div>
+                            <div class="kpi-change positive">Healthy</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Incident Timeline</h3>
+                        <button class="btn-secondary-small" id="createIncidentBtn">Create Incident</button>
+                    </div>
+                    <div class="campaigns-list" id="incidentTimeline"></div>
+                </div>
+            </section>
+
+            <section class="view" id="billingView">
+                <div class="view-header">
+                    <div>
+                        <h1>Billing & Revenue</h1>
+                        <p>Track revenue share, invoices, and outstanding balances across tenants.</p>
+                    </div>
+                    <button class="btn-primary" id="runBillingCycle">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"/>
+                            <polyline points="1 20 1 14 7 14"/>
+                            <path d="M3.51 9a9 9 0 0 1 14.13-3.36L23 10M1 14l5.37 5.37A9 9 0 0 0 20.49 15"/>
+                        </svg>
+                        Run Billing Cycle
+                    </button>
+                </div>
+
+                <div class="payment-stats">
+                    <div class="payment-stat-card">
+                        <h4>Total MRR</h4>
+                        <div class="payment-value">$287,400</div>
+                        <div class="payment-detail">+5.4% MoM</div>
+                    </div>
+                    <div class="payment-stat-card">
+                        <h4>Outstanding</h4>
+                        <div class="payment-value warning">$38,260</div>
+                        <div class="payment-detail">Across 18 tenants</div>
+                    </div>
+                    <div class="payment-stat-card">
+                        <h4>Payments (7d)</h4>
+                        <div class="payment-value success">$48,920</div>
+                        <div class="payment-detail">149 invoices</div>
+                    </div>
+                    <div class="payment-stat-card">
+                        <h4>Revenue Share</h4>
+                        <div class="payment-value">$94,280</div>
+                        <div class="payment-detail">Platform portion</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Invoice Summary</h3>
+                        <select class="filter-select" id="billingStatusFilter">
+                            <option>All</option>
+                            <option>Paid</option>
+                            <option>Pending</option>
+                            <option>Overdue</option>
+                        </select>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice ID</th>
+                                    <th>Tenant</th>
+                                    <th>Issued</th>
+                                    <th>Due</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="billingTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="supportView">
+                <div class="view-header">
+                    <div>
+                        <h1>Support Operations</h1>
+                        <p>Coordinate escalations between tenants, partners, and the NOC.</p>
+                    </div>
+                    <button class="btn-primary" id="newTicketBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        New Ticket
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Ticket</th>
+                                    <th>Tenant</th>
+                                    <th>Priority</th>
+                                    <th>Opened</th>
+                                    <th>Owner</th>
+                                    <th>Status</th>
+                                    <th>SLA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="supportTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="activityView">
+                <div class="view-header">
+                    <div>
+                        <h1>Role Activity</h1>
+                        <p>Review recent actions performed by business and production owners. View only.</p>
+                    </div>
+                    <div class="button-group">
+                        <select class="filter-select" id="activityRoleFilter">
+                            <option>All Roles</option>
+                            <option>Business Owner</option>
+                            <option>Production Owner</option>
+                        </select>
+                        <select class="filter-select" id="activityRangeFilter">
+                            <option>Last 24 Hours</option>
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="two-column-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Business Owner Activity</h3>
+                            <span class="badge status-shipped">View Only</span>
+                        </div>
+                        <div class="campaigns-list" id="businessOwnerActivity"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Production Owner Activity</h3>
+                            <span class="badge status-shipped">View Only</span>
+                        </div>
+                        <div class="campaigns-list" id="productionOwnerActivity"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="resourcesView">
+                <div class="view-header">
+                    <div>
+                        <h1>Resources & Knowledge</h1>
+                        <p>Centralized FAQs, support guidance, blog updates, and tutorials for super admins.</p>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn-secondary" id="openSupportDocsBtn">Open Help Center</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Share New Resource</h3>
+                        <span class="badge status-shipped">Visible to Admin Team</span>
+                    </div>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label>Resource Type</label>
+                            <select class="form-select" id="resourceTypeSelect">
+                                <option value="faq">Super Admin FAQ</option>
+                                <option value="support">Support Playbook</option>
+                                <option value="blog">Blog Highlight</option>
+                                <option value="tutorial">Tutorial / Knowledge Base</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-input" id="resourceTitleInput" placeholder="Concise headline for the update" />
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-textarea" id="resourceDescriptionInput" rows="4" placeholder="Summarize the key information or action item"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>CTA Label (optional)</label>
+                            <input type="text" class="form-input" id="resourceCtaInput" placeholder="e.g., View document" />
+                        </div>
+                        <div class="button-group">
+                            <button class="btn-primary" id="submitResourceBtn">Share Resource</button>
+                            <button class="btn-secondary" id="resetResourceBtn">Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-column-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Super Admin FAQ</h3>
+                        </div>
+                        <div class="campaigns-list" id="faqList"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Support Ticket Playbook</h3>
+                        </div>
+                        <div class="campaigns-list" id="supportGuide"></div>
+                    </div>
+                </div>
+
+                <div class="two-column-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Platform Blog Highlights</h3>
+                            <span class="badge status-shipped">Updated Weekly</span>
+                        </div>
+                        <div class="campaigns-list" id="blogHighlights"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Tutorials & Knowledge Base</h3>
+                        </div>
+                        <div class="campaigns-list" id="knowledgeBase"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="noticesView">
+                <div class="view-header">
+                    <div>
+                        <h1>Broadcast Notices</h1>
+                        <p>Send informational notices to all tenants or target specific business and production owners.</p>
+                    </div>
+                    <div class="button-group">
+                        <select class="filter-select" id="noticeTemplateSelect">
+                            <option>Blank Notice</option>
+                            <option>Maintenance Window</option>
+                            <option>Billing Update</option>
+                            <option>Incident Follow-up</option>
+                        </select>
+                        <button class="btn-secondary" id="noticePreviewBtn">Preview Notice</button>
+                    </div>
+                </div>
+
+                <div class="two-column-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Create Notice</h3>
+                            <span class="badge status-shipped">Send Only</span>
+                        </div>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label>Audience</label>
+                                <div class="schedule-options">
+                                    <label class="radio-label">
+                                        <input type="radio" name="noticeAudience" value="all" checked>
+                                        <span>All Tenants</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="noticeAudience" value="targeted">
+                                        <span>Individual Owners</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="targetedRecipientsContainer" style="display: none;">
+                                <label>Select Recipients</label>
+                                <div class="campaigns-list" id="recipientChecklist"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <input type="text" class="form-input" id="noticeSubject" placeholder="e.g., Scheduled downtime on Nov 2" />
+                            </div>
+                            <div class="form-group">
+                                <label>Priority</label>
+                                <select class="form-select" id="noticePriority">
+                                    <option>Normal</option>
+                                    <option>High</option>
+                                    <option>Critical</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea class="form-textarea" id="noticeMessage" rows="6" placeholder="Provide clear context, timeline, and next steps..."></textarea>
+                            </div>
+                            <div class="button-group">
+                                <button class="btn-primary" id="sendNoticeBtn">Send Notice</button>
+                                <button class="btn-secondary" id="saveDraftNoticeBtn">Save Draft</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Notices</h3>
+                            <a href="#" class="link-primary">View Archive</a>
+                        </div>
+                        <div class="campaigns-list" id="noticeHistory"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="accessView">
+                <div class="view-header">
+                    <div>
+                        <h1>User Access</h1>
+                        <p>Review elevated access requests and global permissions.</p>
+                    </div>
+                    <button class="btn-secondary" id="accessPoliciesBtn">Manage Policies</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Pending Approvals</h3>
+                        <button class="btn-secondary-small" id="bulkApproveBtn">Approve All</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Tenant</th>
+                                    <th>Requested Role</th>
+                                    <th>Reason</th>
+                                    <th>Requested</th>
+                                    <th>Status</th>
+                                    <th>Decision</th>
+                                </tr>
+                            </thead>
+                            <tbody id="accessTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="auditView">
+                <div class="view-header">
+                    <div>
+                        <h1>Audit Log</h1>
+                        <p>Trace privileged actions and configuration changes.</p>
+                    </div>
+                    <select class="filter-select" id="auditFilter">
+                        <option>Last 24 Hours</option>
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Custom Range</option>
+                    </select>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Scope</th>
+                                    <th>IP / Location</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="auditTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="view" id="settingsView">
+                <div class="view-header">
+                    <div>
+                        <h1>Platform Settings</h1>
+                        <p>Control global toggles, feature flags, and data retention.</p>
+                    </div>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="settings-sidebar">
+                        <nav class="settings-nav">
+                            <a href="#toggles" class="settings-nav-item active">Feature Flags</a>
+                            <a href="#security" class="settings-nav-item">Security</a>
+                            <a href="#data" class="settings-nav-item">Data Retention</a>
+                            <a href="#integrations" class="settings-nav-item">Integrations</a>
+                            <a href="#notifications" class="settings-nav-item">Notifications</a>
+                        </nav>
+                    </div>
+                    <div class="settings-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Feature Flags</h3>
+                                <button class="btn-secondary-small" id="publishFlagsBtn">Publish Changes</button>
+                            </div>
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>AI Proof Assistant</label>
+                                    <div class="schedule-options">
+                                        <label class="radio-label">
+                                            <input type="radio" name="flag-ai-proof" checked>
+                                            <span>Enabled (Beta)</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="flag-ai-proof">
+                                            <span>Disabled</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Usage-Based Billing</label>
+                                    <div class="schedule-options">
+                                        <label class="radio-label">
+                                            <input type="radio" name="flag-usage" checked>
+                                            <span>Enabled for Enterprise</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="flag-usage">
+                                            <span>Disabled</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Audit Log Retention</label>
+                                    <select class="form-select" id="auditRetentionSelect">
+                                        <option>18 months</option>
+                                        <option selected>24 months</option>
+                                        <option>36 months</option>
+                                        <option>Custom</option>
+                                    </select>
+                                </div>
+                                <div class="button-group">
+                                    <button class="btn-primary">Save Settings</button>
+                                    <button class="btn-secondary">Discard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="super-admin-dashboard.js"></script>
+</body>
+</html>
